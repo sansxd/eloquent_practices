@@ -41,4 +41,19 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class);
     }
+    //1 usuario pertenece a 1 nivel
+    public function level()
+    {
+        return $this->belongsTo(Level::class);
+    }
+    //1 usuario pertenece a 1 grupo y tambien tiene muchos grupos
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class)->withTimestamps();
+    }
+    //un usuario tiene una localizacion a traves de perfil.
+    public function location()
+    {
+        return $this->hasOneThrough(Location::class, Profile::class);
+    }
 }
