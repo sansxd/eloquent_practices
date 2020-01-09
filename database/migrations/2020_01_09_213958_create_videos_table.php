@@ -15,7 +15,21 @@ class CreateVideosTable extends Migration
     {
         Schema::create('videos', function (Blueprint $table) {
             $table->bigIncrements('id');
+            //1 video pertenece a una categoria
+            $table->unsignedBigInteger('category_id');
+            //y es creado por un usuario
+            $table->unsignedBigInteger('user_id');
+            $table->string('name');
+
             $table->timestamps();
+            //clave foranea con columan category_id
+            //que hace referencia al id de la tabla categories
+            $table->foreign('category_id')->references('id')->on('categories')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 
