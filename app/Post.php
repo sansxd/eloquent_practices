@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    //un post pertenece a un usuario
     public function user()
     {
         return $this->belongsTo(User::class);
