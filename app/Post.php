@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    protected $hidden = [
+        'updated_at', 'created_at'
+    ];
     //un post pertenece a un usuario
     public function user()
     {

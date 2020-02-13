@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/a', function () {
-    return "llegando";
+Route::resource('user', 'UserController');
+
+Route::fallback(function () {
+    return response()->json(['error' => 'Not Found!'], 404);
 });

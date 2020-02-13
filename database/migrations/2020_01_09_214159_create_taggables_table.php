@@ -17,9 +17,7 @@ class CreateTaggablesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('tag_id');
             $table->morphs('taggable');
-            $table->timestamps();
             //polimorfismo entre tablas
-            $table->morphs('commentable');
             $table->foreign('tag_id')->references('id')->on('tags')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');

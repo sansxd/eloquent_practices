@@ -24,4 +24,12 @@ class VideoTableSeeder extends Seeder
             }
         });
     }
+    public function array($max)
+    {
+        $values = [];
+        for ($i = 1; $i < $max; $i++) {
+            $values[] = $i;
+        }
+        return $values;
+    }
 }

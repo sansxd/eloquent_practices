@@ -22,9 +22,9 @@ class CreateCommentsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->text('body');
 
-            $table->timestamps();
             //polimorfismo entre tablas
             $table->morphs('commentable');
+            $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
