@@ -3,8 +3,11 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -53,9 +56,24 @@ class Handler extends ExceptionHandler
     {
         if ($exception instanceof ModelNotFoundException && $request->wantsJson()) {
             return response()->json([
-                'error' => 'Resource not found'
+                'Error' => 'Record not found'
             ], 404);
         }
+        if ($exception instanceof NotFoundHttpException) {
+            return response()->json([
+                'Error' => 'Resource not found'
+            ], 404);
+        }
+        if ($exception instanceof MethodNotAllowedHttpException) {
+            return response()->json([
+                'Error' => 'Method is not allowed for the requested route',
+            ], 405);
+        }
+        // if ($exception instanceof AuthorizationException) {
+        //     return response()->json([
+        //         'Error' => 'This action is unauthorized'
+        //     ], 401);
+        // }
         return parent::render($request, $exception);
     }
 }
