@@ -8,6 +8,12 @@ use App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
+    private $users;
+    public function __construct(User $users)
+    {
+        $this->middleware('auth:api')->except(['index', 'show']);
+        $this->users = $users;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +21,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $lista_usuarios = User::all();
-        return UserResource::collection($lista_usuarios);
+        //$users = User::all();
+        return UserResource::collection($this->users->orderBy('id', 'desc')->get());
     }
 
     /**

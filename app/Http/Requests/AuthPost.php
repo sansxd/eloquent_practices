@@ -13,7 +13,7 @@ class AuthPost extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,6 +27,7 @@ class AuthPost extends FormRequest
             'name' => 'required',
             'email' => 'required|email:rfc|unique:users',
             'password' => 'required',
+            'level_id' => 'nullable|numeric'
         ];
     }
 }
