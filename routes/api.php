@@ -13,11 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::resource('user', 'UserController');
 
-Route::fallback(function () {
-    return response()->json(['error' => 'Not Found!'], 404);
-});
+//route User api
+Route::apiResource('users', 'UserController');
+Route::apiResource('posts', 'Api\PostController');
+
+//register and login of authcontroller
+Route::post('register', 'AuthController@register');
+Route::post('login', 'AuthController@login');
+Route::get('logout', 'AuthController@logout');
+
+// Route::fallback(function () {
+//     return response()->json(['Error' => 'Not Found!'], 404);
+// });
