@@ -17,7 +17,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'level_id'
+        'id', 'name', 'email', 'password', 'level_id'
     ];
 
     /**
@@ -26,7 +26,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'updated_at', 'created_at'
+        'password', 'remember_token', 'updated_at', 'created_at', 'email_verified_at'
     ];
 
     /**
@@ -90,9 +90,13 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getJWTCustomClaims()
     {
-        return [];
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email
+        ];
     }
-    //el método que se muestra se llama mutador
+    //el método se llama mutador
     public function setPasswordAttribute($pass)
     {
         $this->attributes['password'] = Hash::make($pass);
